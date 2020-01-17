@@ -190,3 +190,8 @@ def winning_team
   away = get_team_points(hash[:away])
   return (home > away) ? hash[:home][:team_name] : hash[:away][:team_name]
 end 
+
+def player_with_longest_name
+  array = get_players
+  (array.sort_by {|players| players[:player_name].length}.last)[:player_name]
+end 
