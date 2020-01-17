@@ -1,4 +1,5 @@
 require 'pry'
+
 def game_hash
     hash = {
         :home => {
@@ -120,103 +121,43 @@ def game_hash
     }
 end
 
-def get_player_attribute(name,attribute)
-  hash = game_hash
-  hash.each do |teams, teams_hash|
-    teams_hash[:players].each do |details|
-      return details[attribute] if details[:player_name].include?(name)
-    end
+def get_player_details(name, attribute)
+    game_hash.each do |teams, team_hash|
+      team_hash[:players].each do |player_details|
+        return player_details[attribute] if player_details[:player_name].include?(name)
+      end
+    end 
+    false
   end 
-  false
-end
 
 def num_points_scored(name)
-  get_player_attribute(name,:points)
-end
+  get_player_details(name, :points)
+end 
 
 def shoe_size(name)
-  get_player_attribute(name,:shoe)
-end 
+  get_player_details(name, :shoe)
+end
 
-def get_team_attribute(team,attribute)
-  hash = game_hash
-    hash.each do |teams, teams_hash|
-      return teams_hash[attribute] if teams_hash[:team_name].include?(team)
-    end
-    false
-end 
+def get_team_attributes(team, attribute)
+  game_hash.each do |teams, team_hash|
+    return team_hash[attribute] if team_hash[:team_name].include?(team) 
+  end
+end
 
 def team_colors(team)
-     get_team_attribute(team,:colors)
-end 
+  get_team_attributes(team, :colors)
+end
 
 def team_names
-  game_hash.each.map{|k,v| v[:team_name]}
-end 
+  game_hash.each.map {|k,v| v[:team_name]}
+end
 
 def player_numbers(team)
-  hash = game_hash
-  hash.each do |teams, teams_hash| 
-    return teams_hash[:players].each.map{|v| v[:number]} if teams_hash[:team_name].include?(team)
-  end 
+  game_hash.each do |teams, team_hash|
+    return team_hash[:players].each.map {|v| v[:number]} if team_hash[:team_name].include?(team)
+    end
 end 
 
 def player_stats(name)
-  game_hash.each do |teams, teams_hash|
-    teams_hash[:players].each do |players|
-      return players.tap {|t| t.delete(:player_name)} if players[:player_name].include?(name)
-    end 
-  end
-end 
-
-def get_players
-  game_hash.each.map{|k,v| v[:players]}.flatten
-end 
-
-def big_shoe_rebounds
-  #greedy approach algorithm.
-  array = get_players
-  (array.sort_by {|v| v[:shoe]}.last)[:rebounds]
-  # rebounds = 0
-  # shoe_size = 0
-  # array.each do |player|
-  # if player[:shoe] > shoe_size 
-  #   shoe_size = player[:shoe]
-  #   rebounds = player[:rebounds]
-  # end 
-  # end 
-  # rebounds
-end 
-
-def most_points_scored
-  array = get_players
-  (array.sort_by {|v| v[:points]}.last)[:player_name]
-end 
-
-def winning_team
   
-  hash = game_hash 
-  home = get_team_points(hash[:home])
-  away = get_team_points(hash[:away])
-  
-  return (home > away) ? hash[:home][:team_name] : hash[:away][:team_name]
-end 
-
-def get_team_points(team_hash)
-  points = 0 
-  team_hash[:players].each do |players|
-    points += players[:points]
-  end 
-  points 
-  # team_hash[:players].map{|v| v[:points]}.inject(0){|sum,x| sum + x}
-end
-
-def player_with_longest_name
-  array = get_players
-  (array.sort_by {|player| player[:player_name].length}.last)[:player_name]
-end 
-
-def long_name_steals_a_ton?
-  array = get_players
-  (array.sort_by {|player| player[:player_name].length}.last)[:steals] > 0
 end 
