@@ -166,6 +166,11 @@ def player_stats(name)
   end
 end 
 
+def get_players
+  game_hash.each.map {|k,v| v[:players]}.flatten
+end
+
 def big_shoe_rebounds
-  
+  array = get_players
+  binding.pry
 end 
