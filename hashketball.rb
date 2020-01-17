@@ -161,7 +161,7 @@ end
 def player_stats(name)
   game_hash.each do |teams, teams_hash|
     teams_hash[:players].each do |players|
-      return players.tap {|v| v.delete[:player_name]} if players[:player_name].include?(name)
+      return players.tap {|v| v.delete(:player_name)} if players[:player_name].include?(name)
     end 
   end
 end 
