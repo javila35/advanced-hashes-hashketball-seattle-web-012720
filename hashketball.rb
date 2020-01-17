@@ -174,3 +174,8 @@ def big_shoe_rebounds
   array = get_players
   (array.sort_by {|v| v[:shoe]}.last) [:rebounds]
 end 
+
+def most_points_scored
+  array = get_players
+  (array.sort_by {|v| v[:points]}.last) [:player_name]
+end 
