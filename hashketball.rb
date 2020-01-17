@@ -195,3 +195,8 @@ def player_with_longest_name
   array = get_players
   (array.sort_by {|players| players[:player_name].length}.last)[:player_name]
 end 
+
+def long_name_steals_a_ton?
+  array = get_players
+  (array.sort_by {|players| players[:player_name].length}.last) [:steals] > 20
+end 
