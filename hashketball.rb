@@ -172,5 +172,5 @@ end
 
 def big_shoe_rebounds
   array = get_players
-  (array.sort_by {|v| v[:shoe].last}) [:rebounds]
+  (array.sort_by {|v| v[:shoe]}.last) [:rebounds]
 end 
