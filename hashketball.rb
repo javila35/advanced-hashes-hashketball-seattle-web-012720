@@ -188,4 +188,5 @@ def winning_team
   hash = game_hash
   home = get_team_points(hash[:home])
   away = get_team_points(hash[:away])
+  return (home > away) ? hash[:home][:team_name] : hash[:away][:team_name]
 end 
