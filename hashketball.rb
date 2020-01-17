@@ -179,3 +179,13 @@ def most_points_scored
   array = get_players
   (array.sort_by {|v| v[:points]}.last) [:player_name]
 end 
+
+def get_team_points(team_hash)
+  team_hash[:players].map {|v| v[:points]}.inject(0) {|sum,x| sum + x}
+end 
+
+def winning_team 
+  hash = game_hash
+  home = get_team_points(hash[:home])
+  away = get_team_points(hash[:away])
+end 
